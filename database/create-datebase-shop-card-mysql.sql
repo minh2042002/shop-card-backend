@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `role` (
   id int PRIMARY KEY AUTO_INCREMENT,
-  `name` ENUM('admin', 'role') NOT NULL
+  `name` ENUM('admin', 'user') NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   email varchar(150) UNIQUE NOT NULL,
   phone varchar(10) UNIQUE NOT NULL,
   address varchar(150),
-  `password` varchar(32) NOT NULL,
+  avatar_link text,
+  `password` TEXT NOT NULL,
   role_id int NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
@@ -39,9 +40,7 @@ CREATE TABLE IF NOT EXISTS image_product (
 
 CREATE TABLE IF NOT EXISTS feedback (
   id int PRIMARY KEY AUTO_INCREMENT,
-  full_name varchar(50) NOT NULL,
-  email varchar(150) NOT NULL UNIQUE,
-  phone varchar(10) NOT NULL UNIQUE,
+  user_id int NOT NULL,
   title varchar(100) NOT NULL,
   note text NOT NULL
 );
@@ -49,10 +48,6 @@ CREATE TABLE IF NOT EXISTS feedback (
 CREATE TABLE IF NOT EXISTS `order` (
   id int PRIMARY KEY AUTO_INCREMENT,
   user_id int NOT NULL,
-  full_name varchar(50) NOT NULL,
-  email varchar(150) NOT NULL,
-  phone varchar(10) NOT NULL,
-  address varchar(150) NOT NULL,
   note text,
   order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `status` BIT(1) NOT NULL

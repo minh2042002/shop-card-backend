@@ -1,31 +1,31 @@
 package com.hust.shopcardbackend.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "feedback")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FeedBack {
+public class FeedBack implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "full_name", length = 50, nullable = false)
-    private String fullName;
-
-    @Column(name = "email", length = 150, nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "phone", length = 10, nullable = false, unique = true)
-    private String phone;
+   @ManyToOne(targetEntity = User.class)
+   @JoinColumn(referencedColumnName = "id", nullable = false)
+   @EqualsAndHashCode.Exclude
+   @ToString.Exclude
+   private User user;
 
     @Column(name = "title", length = 100, nullable = false)
     private String title;

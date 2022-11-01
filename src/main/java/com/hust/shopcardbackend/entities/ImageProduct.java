@@ -5,13 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "image_product")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageProduct {
+public class ImageProduct implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id")
     @Id

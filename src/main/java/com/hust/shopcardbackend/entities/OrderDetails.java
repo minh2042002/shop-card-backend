@@ -3,13 +3,18 @@ package com.hust.shopcardbackend.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "order_details")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDetails {
+public class OrderDetails implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id")
     @Id

@@ -3,6 +3,8 @@ package com.hust.shopcardbackend.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -10,7 +12,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Role implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id")
     @Id
@@ -25,7 +30,7 @@ public class Role {
     @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleUser name;
-    private enum RoleUser {
+    public enum RoleUser {
         admin,
         user
     }

@@ -5,6 +5,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id")
     @Id
@@ -32,7 +37,10 @@ public class User {
     @Column(name = "address", length = 150)
     private String address;
 
-    @Column(name = "password", length = 32, nullable = false)
+    @Column(name = "avatar_link", columnDefinition = "TEXT")
+    private String avatarLink;
+
+    @Column(name = "password", nullable = false, columnDefinition = "TEXT")
     private String password;
 
     @ManyToOne(targetEntity = Role.class)
@@ -45,6 +53,11 @@ public class User {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Order> orders;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<FeedBack> feedBacks;
 
     @Column(name = "created_at", updatable = false)
     @Temporal(value = TemporalType.TIMESTAMP)

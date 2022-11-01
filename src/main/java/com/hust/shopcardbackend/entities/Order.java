@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +14,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Order implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Column(name = "id")
     @Id
@@ -29,18 +34,6 @@ public class Order {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<OrderDetails> orderDetails;
-
-    @Column(name = "full_name", length = 50, nullable = false)
-    private String fullName;
-
-    @Column(name = "email", length = 150, nullable = false)
-    private String email;
-
-    @Column(name = "phone", length = 10, nullable = false)
-    private String phone;
-
-    @Column(name = "address", length = 150, nullable = false)
-    private String address;
 
     @Column(name = "note", columnDefinition = "TEXT")
     private String note;
