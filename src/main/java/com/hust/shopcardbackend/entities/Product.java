@@ -62,4 +62,13 @@ public class Product implements Serializable {
     @CreationTimestamp
     private Date updateAt;
 
+    public Product(Category category, List<ImageProduct> imageProducts, List<OrderDetails> orderDetails, String title, Integer price, Float discount, String description) {
+        this.category = category;
+        this.imageProducts = imageProducts;
+        this.orderDetails = orderDetails;
+        this.title = title;
+        this.price = price;
+        this.discount = discount;
+        this.description = description;
+    }
 }

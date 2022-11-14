@@ -1,13 +1,14 @@
-package com.hust.shopcardbackend.dto;
+package com.hust.shopcardbackend.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserResponse {
 
     private Integer userId;
     private String fullName;
@@ -15,4 +16,5 @@ public class UserDto {
     private String phone;
     private String address;
     private String avatarLink;
+
 }

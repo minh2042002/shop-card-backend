@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "category")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Category implements Serializable {
 
@@ -22,11 +21,16 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "name", length = 50, nullable = false)
+    private String name;
+
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, orphanRemoval = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Product> products;
 
-    @Column(name = "name", length = 50, nullable = false)
-    private String name;
+    public Category(String name, List<Product> products) {
+        this.name = name;
+        this.products = products;
+    }
 }

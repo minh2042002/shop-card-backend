@@ -9,7 +9,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "feedback")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class FeedBack implements Serializable {
 
@@ -32,4 +31,10 @@ public class FeedBack implements Serializable {
 
     @Column(name = "note", columnDefinition = "TEXT")
     private String note;
+
+    public FeedBack(User user, String title, String note) {
+        this.user = user;
+        this.title = title;
+        this.note = note;
+    }
 }

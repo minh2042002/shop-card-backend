@@ -35,4 +35,10 @@ public class OrderDetails implements Serializable {
 
     @Column(name = "count_product",nullable = false)
     private Integer countProduct;
+
+    public OrderDetails(Order order, Product product, Integer countProduct) {
+        this.order = order;
+        this.product = product;
+        this.countProduct = countProduct;
+    }
 }

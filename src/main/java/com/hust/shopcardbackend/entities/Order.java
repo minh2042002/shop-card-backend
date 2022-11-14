@@ -46,4 +46,10 @@ public class Order implements Serializable {
     @Column(name = "status", columnDefinition = "BIT(1)")
     private Boolean status;
 
+    public Order(User user, List<OrderDetails> orderDetails, String note, Boolean status) {
+        this.user = user;
+        this.orderDetails = orderDetails;
+        this.note = note;
+        this.status = status;
+    }
 }

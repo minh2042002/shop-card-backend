@@ -1,5 +1,6 @@
 package com.hust.shopcardbackend.entities;
 
+import com.hust.shopcardbackend.utilities.RoleUser;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -13,7 +14,6 @@ import java.util.List;
 @Entity
 @Table(name="user")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User implements Serializable {
 
@@ -43,11 +43,10 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false, columnDefinition = "TEXT")
     private String password;
 
-    @ManyToOne(targetEntity = Role.class)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Role role;
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private RoleUser role;
+
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @EqualsAndHashCode.Exclude
@@ -68,5 +67,18 @@ public class User implements Serializable {
     @Temporal(value = TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date updateAt;
+
+    public User(String fullName, String email, String phone, String address, String avatarLink, String password, RoleUser role, List<Order> orders, List<FeedBack> feedBacks) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.avatarLink = avatarLink;
+        this.password = password;
+        this.role = role;
+        this.orders = orders;
+        this.feedBacks = feedBacks;
+    }
+
 
 }

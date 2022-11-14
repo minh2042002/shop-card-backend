@@ -30,4 +30,8 @@ public class ImageProduct implements Serializable {
     @Column(name = "image_link", columnDefinition = "TEXT", nullable = false)
     private String imageLink;
 
+    public ImageProduct(Product product, String imageLink) {
+        this.product = product;
+        this.imageLink = imageLink;
+    }
 }
