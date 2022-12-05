@@ -1,20 +1,47 @@
 package com.hust.shopcardbackend.services;
 
+import com.hust.shopcardbackend.config.exceptions.EmailNotFoundException;
 import com.hust.shopcardbackend.dto.user.UserRegistration;
 import com.hust.shopcardbackend.dto.user.UserResponse;
-import com.hust.shopcardbackend.dto.user.UserUpdate;
+import com.hust.shopcardbackend.dto.user.UserUpdateRequest;
 import com.hust.shopcardbackend.entities.User;
-import com.hust.shopcardbackend.exceptions.EmailNotFoundException;
 import com.hust.shopcardbackend.repositories.IUserRepository;
 import com.hust.shopcardbackend.utilities.RoleUser;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserService implements IUserService {
+import java.util.ArrayList;
+import java.util.Collection;
 
-    @Autowired
-    private IUserRepository repository;
+@Service
+@RequiredArgsConstructor
+public class UserService implements IUserService, UserDetailsService {
+
+    private final IUserRepository repository;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        boolean userExists = repository.findByEmail(email).isPresent();
+        if (!userExists) {
+            throw new UsernameNotFoundException("User is not exists!");
+        }
+
+        User user = repository.findByEmail(email).get();
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
+
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                authorities);
+    }
 
     @Override
     public UserResponse addUser(UserRegistration userRegis) throws Exception {
@@ -30,16 +57,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserResponse updateUser(Integer userId, UserUpdate user) throws NullPointerException {
+    public UserResponse updateUser(UserUpdateRequest user) throws NullPointerException {
 
-        boolean userExists = repository.findById(userId).isPresent();
+        boolean userExists = repository.findByEmail(user.getEmail()).isPresent();
 
         User userUpdate;
 
         if (!userExists) {
             throw new NullPointerException("User is not exists!");
         } else {
-            userUpdate = repository.findById(userId).get();
+            userUpdate = repository.findByEmail(user.getEmail()).get();
 
             userUpdate.setFullName(user.getFullName());
             userUpdate.setPhone(user.getPhone());
@@ -71,7 +98,13 @@ public class UserService implements IUserService {
 
         User user = repository.findByEmailAndPassword(email, password).get();
 
-        return new UserResponse(user.getId(), user.getFullName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getAvatarLink());
+        return new UserResponse(
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getAddress(),
+                user.getAvatarLink());
     }
 
     @Override

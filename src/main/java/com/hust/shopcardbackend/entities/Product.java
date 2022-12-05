@@ -2,6 +2,7 @@ package com.hust.shopcardbackend.entities;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -25,12 +26,12 @@ public class Product implements Serializable {
     private Integer id;
 
     @ManyToOne(targetEntity = Category.class)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Category category;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<ImageProduct> imageProducts;
@@ -59,13 +60,10 @@ public class Product implements Serializable {
 
     @Column(name = "update_at")
     @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
+    @UpdateTimestamp
     private Date updateAt;
 
-    public Product(Category category, List<ImageProduct> imageProducts, List<OrderDetails> orderDetails, String title, Integer price, Float discount, String description) {
-        this.category = category;
-        this.imageProducts = imageProducts;
-        this.orderDetails = orderDetails;
+    public Product(String title, Integer price, Float discount, String description) {
         this.title = title;
         this.price = price;
         this.discount = discount;

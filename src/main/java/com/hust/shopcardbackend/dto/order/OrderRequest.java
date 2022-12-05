@@ -1,20 +1,13 @@
-package com.hust.shopcardbackend.dto;
+package com.hust.shopcardbackend.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class OrderDto {
-
-    private Integer orderId;
+public class OrderRequest {
 
     @JsonProperty("orderBy")
     @JsonUnwrapped
@@ -24,13 +17,11 @@ public class OrderDto {
     private Date orderDate;
     private Boolean status;
 
-    @JsonProperty("productList")
     @JsonUnwrapped
     private List<OrderDetailDto> orderDetails;
 
     @Data
     private static class UserDto {
-        private Integer userId;
         private String fullName;
         private String email;
         private String phone;
@@ -41,31 +32,17 @@ public class OrderDto {
     @Data
     private static class OrderDetailDto {
 
-        private Integer orderDetailId;
-
         @JsonUnwrapped
         private ProductDto product;
 
+        @JsonProperty("count")
+        private Integer countProduct;
+
         @Data
         private static class ProductDto {
-            private Integer productId;
             private String title;
-            private Integer price;
+            private Integer salePrice;
 
-            @JsonUnwrapped
-            @JsonProperty("image")
-            private ImageProductDto imageProduct;
-
-            @Data
-            private static class ImageProductDto {
-                private String imageLink;
-            }
         }
-
-        @JsonProperty("count")
-        @JsonUnwrapped
-        private Integer countProduct;
     }
-
-
 }

@@ -28,7 +28,7 @@ public class OrderDetails implements Serializable {
     private Order order;
 
     @ManyToOne(targetEntity = Product.class)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "product_id",referencedColumnName = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Product product;

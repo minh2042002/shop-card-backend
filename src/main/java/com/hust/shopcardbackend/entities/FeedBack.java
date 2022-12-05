@@ -21,7 +21,7 @@ public class FeedBack implements Serializable {
     private Integer id;
 
    @ManyToOne(targetEntity = User.class)
-   @JoinColumn(referencedColumnName = "id", nullable = false)
+   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
    @EqualsAndHashCode.Exclude
    @ToString.Exclude
    private User user;

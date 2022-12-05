@@ -19,6 +19,7 @@ public class UserRegistration {
     @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")
     private String email;
 
+
     @NotBlank(message = "Password is empty!")
     private String password;
 

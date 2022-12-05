@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name="`user`")
 @Data
 @NoArgsConstructor
 public class User implements Serializable {
@@ -20,27 +20,27 @@ public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "id")
+    @Column(name = "`id`")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "full_name", length = 50, nullable = false)
+    @Column(name = "`full_name`", length = 50, nullable = false)
     private String fullName;
 
-    @Column(name = "email", length = 150, unique = true)
+    @Column(name = "`email`", length = 150, unique = true)
     private String email;
 
-    @Column(name = "phone", length = 10, unique = true)
+    @Column(name = "`phone`", length = 10, unique = true)
     private String phone;
 
-    @Column(name = "address", length = 150)
+    @Column(name = "`address`", length = 150)
     private String address;
 
     @Column(name = "avatar_link", columnDefinition = "TEXT")
     private String avatarLink;
 
-    @Column(name = "password", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "`password`", nullable = false, columnDefinition = "TEXT")
     private String password;
 
     @Column(name = "role", nullable = false)

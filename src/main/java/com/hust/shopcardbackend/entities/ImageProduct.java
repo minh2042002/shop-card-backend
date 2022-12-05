@@ -24,7 +24,7 @@ public class ImageProduct implements Serializable {
     private Integer id;
 
     @ManyToOne(targetEntity = Product.class)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product product;
 
     @Column(name = "image_link", columnDefinition = "TEXT", nullable = false)

@@ -24,7 +24,7 @@ public class Category implements Serializable {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, orphanRemoval = true)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Product> products;

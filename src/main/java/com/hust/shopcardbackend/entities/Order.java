@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "order")
+@Table(name = "`order`")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,8 +24,10 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "order_token", updatable = false, length = 255, unique = true, nullable = false)
+    private String orderToken;
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private User user;
@@ -43,7 +45,7 @@ public class Order implements Serializable {
     @CreationTimestamp
     private Date orderDate;
 
-    @Column(name = "status", columnDefinition = "BIT(1)")
+    @Column(name = "`status`", columnDefinition = "BIT(1)")
     private Boolean status;
 
     public Order(User user, List<OrderDetails> orderDetails, String note, Boolean status) {

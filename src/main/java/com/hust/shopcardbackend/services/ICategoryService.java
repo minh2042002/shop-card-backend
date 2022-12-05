@@ -1,13 +1,17 @@
 package com.hust.shopcardbackend.services;
 
+import com.hust.shopcardbackend.dto.category.CategoryResponse;
 import com.hust.shopcardbackend.entities.Category;
 
 public interface ICategoryService {
-    abstract Category findById(Integer categoryId) throws NullPointerException;
 
-    abstract void addCategory(Category category) throws Exception;
+    abstract CategoryResponse findById(Integer categoryId) throws NullPointerException;
+
+    abstract CategoryResponse findByName(String nameCategory) throws NullPointerException;
+
+    abstract CategoryResponse addCategory(String nameCategory) throws Exception;
 
     abstract void updateCategory(Integer categoryId, Category category) throws NullPointerException;
 
-    abstract void deleteCategory(Category category);
+    abstract void deleteCategoryByName(String nameCategory) throws NullPointerException;
 }

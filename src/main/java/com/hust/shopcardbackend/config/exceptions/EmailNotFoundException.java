@@ -1,4 +1,4 @@
-package com.hust.shopcardbackend.exceptions;
+package com.hust.shopcardbackend.config.exceptions;
 
 public class EmailNotFoundException extends Exception{
 

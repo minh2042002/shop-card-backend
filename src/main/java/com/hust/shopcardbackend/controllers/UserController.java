@@ -3,8 +3,8 @@ package com.hust.shopcardbackend.controllers;
 import com.hust.shopcardbackend.dto.user.UserLogin;
 import com.hust.shopcardbackend.dto.user.UserRegistration;
 import com.hust.shopcardbackend.dto.user.UserResponse;
-import com.hust.shopcardbackend.dto.user.UserUpdate;
-import com.hust.shopcardbackend.exceptions.EmailNotFoundException;
+import com.hust.shopcardbackend.dto.user.UserUpdateRequest;
+import com.hust.shopcardbackend.config.exceptions.EmailNotFoundException;
 import com.hust.shopcardbackend.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,12 +64,13 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity<?> updateUser(@PathVariable(value = "id") Integer userId, @RequestBody UserUpdate user) {
+    @PutMapping(value = "/update")
+    public ResponseEntity<?> updateUser(@RequestBody UserUpdateRequest user) {
 
         UserResponse userUpdated;
 
         try {
-            userUpdated = userService.updateUser(userId, user);
+            userUpdated = userService.updateUser(user);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
